@@ -7,5 +7,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
 
+    
+
 # this will be serializing the data user try to send to the API through a POST request
 

@@ -24,6 +24,6 @@ urlpatterns = [
     path('products/', views.ProductsView.as_view()),
     path('products/<str:product_id>/', views.ProductsView.as_view()),
     # *** helper function paths ***
-    path('loadData', views.loadData),
-    path('deleteAllData', views.deleteAllData),
+    path('loadData', views.load_data),
+    path('deleteAllData', views.delete_all_data),
 ]

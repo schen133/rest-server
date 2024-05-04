@@ -1,29 +1,43 @@
 from base.models import Product
+from ..serializer import ProductSerializer 
 
-def checkProductExists(product_id):
+def check_product_exists(product_id):
     if Product.objects.filter(id=product_id).exists():
         return True
     else:
         return False
 
-def insertNewProduct(new_product_details):
-    pass
+# also serialize
+def insert_product(new_product):
+    new_product.save()
 
-def deleteProduct(product_id):
-    pass
+# need to serialize
+def delete_product(product_id):
+    if check_product_exists(product_id):
+        Product.objects.get(id=product_id).delete()
+        return True
+    else:
+        return False
 
-def getProduct(product_id):
-    if checkProductExists(product_id):
+def get_product(product_id):
+    if check_product_exists(product_id):
         product = Product.objects.get(id=product_id)
-        return product
+        return product 
     else:
         # product does not exist
         return None
 
-def getAllProducts():
-    all_products_query = Product.objects.all()
-    all_products = list(all_products_query.values())
-    return all_products
+def get_products():
+    all_products = Product.objects.all()
+    serializer = ProductSerializer(all_products, many=True)
+    return serializer.data 
 
-        
-    
+# serialize as well
+def update_product_details(og_product_serializer, fields_to_update):
+    # pass in og serializer
+    serializer = ProductSerializer(og_product_serializer, data=fields_to_update, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return True
+    else:
+        return False
