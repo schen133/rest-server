@@ -64,19 +64,12 @@ class ProductsView(APIView):
             return Response("Product does not exist", status=status.HTTP_404_NOT_FOUND)
 
         fields_to_update = request.data
-        print("found product")
-        print(og_product_serializer)
 
         if not update_product_details(og_product_serializer, fields_to_update):
             return Response("Update failed", status=status.HTTP_400_BAD_REQUEST)
 
         return Response("Product updated", status=status.HTTP_200_OK) 
         
-        
-        
-
-
-
 # helper API calls
 @api_view(['POST'])
 def load_data(request):
@@ -89,5 +82,3 @@ def load_data(request):
 def delete_all_data(request):
     delete_all_data_helper()
     return Response("Data deleted")
-
-        
