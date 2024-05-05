@@ -1,14 +1,17 @@
 from rest_framework.response import Response
+from django.http import HttpResponse 
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .utils.helper_utils import (load_data_helper, delete_all_data_helper)
 from .utils.db_utils import (get_products, get_product, insert_product, delete_product, update_product_details) 
 from .serializer import ProductSerializer
+from django.core.cache import cache
 
 class ProductsView(APIView):
     def get(self, request, product_id=None):
         if product_id:
+            # could be in cache
             product = get_product(product_id)
             if product is None:
                 return Response("Product does not exist", status=status.HTTP_404_NOT_FOUND)
@@ -16,7 +19,7 @@ class ProductsView(APIView):
             return Response({"product": serializer.data})
         # get all products
         products = get_products()
-        return Response({"products": products}) 
+        return Response({"products": products})
 
     def post(self, request):
         # if bulk product insertion, request would be an array instance instead of a dictionary
@@ -59,15 +62,15 @@ class ProductsView(APIView):
         if not product_id:
             return Response("Product ID is not provided with PUT HTTP request", status=status.HTTP_400_BAD_REQUEST)
         
-        og_product_serializer = get_product(product_id) 
-        if not og_product_serializer:
+        og_product = get_product(product_id) 
+        if not og_product:
             return Response("Product does not exist", status=status.HTTP_404_NOT_FOUND)
 
         fields_to_update = request.data
 
-        if not update_product_details(og_product_serializer, fields_to_update):
+        if not update_product_details(og_product, fields_to_update):
             return Response("Update failed", status=status.HTTP_400_BAD_REQUEST)
-
+        
         return Response("Product updated", status=status.HTTP_200_OK) 
         
 # helper API calls
