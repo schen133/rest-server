@@ -10,10 +10,14 @@ def check_product_exists(product_id):
 
 def insert_product(new_product):
     new_product.save()
+    # cache newly inserted product
+    cache.set(new_product.instance.id, new_product.instance)
 
 def delete_product(product_id):
     if check_product_exists(product_id):
         Product.objects.get(id=product_id).delete()
+        # clear cache
+        cache.delete(product_id)
         return True
     else:
         return False
