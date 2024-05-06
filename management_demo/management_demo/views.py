@@ -41,6 +41,7 @@ class ProductsView(APIView):
             insert_product(serializer)
             return Response({"message": "product created"}, status=status.HTTP_201_CREATED)
         else:
+            print("error here")
             return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
     def delete(self, request, **kwargs):
