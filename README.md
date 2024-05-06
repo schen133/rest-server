@@ -10,7 +10,8 @@ git clone https://github.com/schen133/rest-server.git
 ```
 2) cd into project directory and start python virtual environment
 ```
-//Mac os
+//MacOS 
+virtualenv venv
 source venv/bin/activate
 ```
 3) download all required modules
