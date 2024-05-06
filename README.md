@@ -1,12 +1,10 @@
-## Simple REST API Server DEMO
----
 This is a back-end api server for a simple product management system. It handles GET, POST, DELETE, and PUT requests.
-#### Tech Stacks
+## Tech Stacks
 ___
 - Django rest framework
 - SQLite
 - Redis
-#### Setup  
+## Setup  
 ___
 1) Clone github directory
 ```
@@ -26,12 +24,12 @@ pip install -r requirements.txt
 cd management_demo
 python manage.py runserver 
 ```
-#### Design
+## Design
 ___
 This project has two Django apps, one is called "management_demo" and the other is called "base". 
-###### management_demo
+#### management_demo
 The "management_demo" app is for the purpose of our REST server, it contains majority of the important code written such as *views.py*, *urls.py*, and *serializer.py*.
-###### base 
+#### base 
 The "base" app is for the purpose of the database model we need, which is "Product".
 #### Functionalities and API endpoints
 ___
