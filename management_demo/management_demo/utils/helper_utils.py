@@ -9,10 +9,8 @@ def load_data_helper(data):
         in_stock = row['in_stock']
         tempProduct = Product(name=name, description=description, price=price, in_stock=in_stock)
         tempProduct.save()
-    print("Initial data loaded")
 
 def delete_all_data_helper():
     Product.objects.all().delete()
-    print("All data in database deleted")
     
     

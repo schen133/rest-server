@@ -78,6 +78,7 @@ class ProductsView(APIView):
 def load_data(request):
     if request.method == "POST": 
         mock_data= request.data
+
         load_data_helper(mock_data)
     return Response("Data loaded")
 

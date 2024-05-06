@@ -21,9 +21,9 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # *** products paths ***
-    path('products/', views.ProductsView.as_view()),
-    path('products/<str:product_id>/', views.ProductsView.as_view()),
+    path('products/', views.ProductsView.as_view(), name="products"),
+    path('products/<str:product_id>/', views.ProductsView.as_view(), name="products_with_id"),
     # *** helper function paths ***
-    path('loadData', views.load_data),
-    path('deleteAllData', views.delete_all_data),
+    path('loadData', views.load_data, name="load_data"),
+    path('deleteAllData', views.delete_all_data, name="delete_all_data"),
 ]
